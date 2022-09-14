@@ -1,0 +1,11 @@
+10
+11111;Andre;6
+22222;Bruna;59
+33333;Caio;42
+44444;Diana;46
+55555;Eduardo;12
+66666;Fernanda;20
+77777;Gustavo;92
+88888;Helena;79
+99999;Igor;6
+10100;Julia;28
