@@ -23,23 +23,25 @@ public class ArvoreBinaria<Tipo extends Comparable<Tipo>>{
         }
         return leaf;
     }
-    //Função para busca de objeto recursivamente
+    //Função para busca de objeto iterativamente
     private Node<Tipo> searchValue(Node<Tipo> leaf,Tipo obj){
-        if(leaf != null){
+        Node<Tipo> aux = new Node<Tipo>(null);
+        while(leaf != obj){
             if(leaf.getValor().compareTo(obj) > 0){
-                searchValue(leaf.getEsquerdo(),obj);
+                aux = leaf;
+                leaf = aux.getEsquerdo();
+                //searchValue(leaf.getEsquerdo(),obj);
             }
             else if(leaf.getValor().compareTo(obj) < 0){
-                searchValue(leaf.getDireito(),obj);
+                aux = leaf;
+                leaf = aux.getDireito();
+                //searchValue(leaf.getDireito(),obj);
             }
             else if(leaf.getValor().compareTo(obj) == 0){
                 return leaf;
             }
-            return leaf;
         }
-        else{
-            return leaf;
-        }
+        return leaf;
     }
     //Função para remoção de objeto
     private Node<Tipo> destroyNode(Node<Tipo> leaf,Tipo obj){
