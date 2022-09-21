@@ -143,6 +143,19 @@ public class ArvoreBinaria<Tipo extends Comparable<Tipo>>{
         }
         return leaf;
     }
+	//Função para encontrar o pior caso
+	public Node<Tipo> getWorst(Node<Tipo> leaf){
+		if(leaf != null){
+			if(leaf.getDireito() != null){
+				leaf = getWorst(leaf.getDireito());
+			}
+			else if(leaf.getEsquerdo != null){
+				leaf = getWorst(leaf.getEsquerdo());
+			}
+			return leaf;
+		}
+		return leaf;
+	}
     //Método para adição de nó na árvore
     public void addNode(Tipo obj){
         raiz = createNode(raiz,obj);
@@ -173,11 +186,8 @@ public class ArvoreBinaria<Tipo extends Comparable<Tipo>>{
     public void printMax(){
         raiz = findMax(raiz);
     }
-
-    /* Não entendemos o item "obter pior caso de busca"
-     * O pior caso de busca seria aquele pelo maior objeto em uma árvore que possui apenas filhos à direita
-     * Em outras palavras, o pior caso é um conjunto ordenado em que se busca o maior elemento
-     * Porque, para chegarmos ao maior elemento, deveríamos checar todos os outros incluindo o último.
-     * A complexidade seria O(n).
-     */
+	//Método para obter pior caso de busca
+	public void findWorst(){
+		raiz = getWorst(raiz);
+	}
 }
