@@ -1,32 +1,33 @@
 /**@author Emanuel Norjosa Luz e Giovanni Sencioles*/
 
 package arvorebinaria;
+import Aluno.*;
 
 public class Node<Tipo> {
-    Tipo valor;
-    Node<Tipo> noEsquerdo;
-    Node<Tipo> noDireito;
-    Node(Tipo val){
-        this.valor = val;
-        this.noEsquerdo = null;
-        this.noDireito = null;
-    }
-    Tipo getValor(){
+    private Aluno<Tipo> valor;
+    private Node<Tipo> noEsquerdo;
+    private Node<Tipo> noDireito;
+    Node(Aluno<Tipo> val){
+		this.valor = val;
+		this.noEsquerdo = null;
+		this.noDireito = null;
+	}
+    public Tipo getValor(){
         return this.valor;
     } 
-    Node<Tipo> getEsquerdo(){
+    public Node<Tipo> getEsquerdo(){
         return this.noEsquerdo;
     }
-    Node<Tipo> getDireito(){
+    public Node<Tipo> getDireito(){
         return this.noDireito;
     }
-    void setValor(Tipo val){
+    public void setValor(Tipo val){
         this.valor = val;
     }
-    void setEsquerdo(Node<Tipo> node){
+    public void setEsquerdo(Node<Tipo> node){
         this.noEsquerdo = node;
     }
-    void setDireito(Node<Tipo> node){
+    public void setDireito(Node<Tipo> node){
         this.noDireito = node;
     }
 }

@@ -5,7 +5,7 @@ package arvorebinaria;
 public class ArvoreBinaria<Tipo extends Comparable<Tipo>>{
     Node<Tipo> raiz;
     ArvoreBinaria(Node<Tipo> root){
-        this.raiz = null;
+        this.raiz = root;
     }
     //Função para criação de nó recursivamente
     private Node<Tipo> createNode(Node<Tipo> leaf,Tipo obj){
