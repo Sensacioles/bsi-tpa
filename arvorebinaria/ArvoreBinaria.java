@@ -1,22 +1,24 @@
-/**@author Emanuel Norjosa Luz e Giovanni Sencioles*/
+/**@author Emanuel Norjoea Luz e Giovanni Sencioles*/
 
 package arvorebinaria;
 
 public class ArvoreBinaria<Tipo extends Comparable<Tipo>>{
     Node<Tipo> raiz;
-    ArvoreBinaria(Node<Tipo> root){
-        this.raiz = root;
+    protected ArvoreBinaria(Node<Tipo> root){
+        this.raiz = null;
     }
     //Função para criação de nó recursivamente
-    private Node<Tipo> createNode(Node<Tipo> leaf,Tipo obj){
+    private Node<Tipo> createNode(Node<Tipo> leaf,Aluno<Tipo> aluno){
+		if(leaf== null){
+			return new Node<Tipo>(aluno);}
         if(leaf.getValor() == null){
-            return new Node<Tipo>(obj);
+            return new Node<Tipo>(aluno);
         }
-        if(leaf.getValor().compareTo(obj) > 0){
-            leaf.noEsquerdo = createNode(leaf.getEsquerdo(),obj);
+        if((leaf.getValor().getMatricula()).compareTo(aluno.getMatricula()) > 0){
+            leaf.noEsquerdo = createNode(leaf.getEsquerdo(),aluno);
         }
-        else if(leaf.getValor().compareTo(obj) < 0){
-            leaf.noDireito = createNode(leaf.getEsquerdo(),obj);
+        else if((leaf.getValor().getMatricula()).compareTo(aluno.getMatricula()) < 0){
+            leaf.noDireito = createNode(leaf.getEsquerdo(),aluno);
         }
         else{
             return leaf;
@@ -24,32 +26,32 @@ public class ArvoreBinaria<Tipo extends Comparable<Tipo>>{
         return leaf;
     }
     //Função para busca de objeto iterativamente
-    private Node<Tipo> searchValue(Node<Tipo> leaf,Tipo obj){
+    public Node<Tipo> searchValue(Node<Tipo> leaf,Tipo obj){
         Node<Tipo> aux = new Node<Tipo>(null);
         while(leaf != obj){
-            if(leaf.getValor().compareTo(obj) > 0){
+            if(leaf.getValor().getMatricula().compareTo(obj) > 0){
                 aux = leaf;
                 leaf = aux.getEsquerdo();
                 //searchValue(leaf.getEsquerdo(),obj);
             }
-            else if(leaf.getValor().compareTo(obj) < 0){
+            else if(leaf.getValor().getMatricula().compareTo(obj) < 0){
                 aux = leaf;
                 leaf = aux.getDireito();
                 //searchValue(leaf.getDireito(),obj);
             }
-            else if(leaf.getValor().compareTo(obj) == 0){
+            else if(leaf.getValor().getMatricula().compareTo(obj) == 0){
                 return leaf;
             }
         }
         return leaf;
     }
     //Função para remoção de objeto
-    private Node<Tipo> destroyNode(Node<Tipo> leaf,Tipo obj){
+    public Node<Tipo> destroyNode(Node<Tipo> leaf,Tipo obj){
         if(leaf != null){
-            if(leaf.getValor().compareTo(obj) > 0){
+            if(leaf.getValor().getMatricula().compareTo(obj) > 0){
                 destroyNode(leaf.getEsquerdo(),obj);
             }
-            else if(leaf.getValor().compareTo(obj) < 0){
+            else if(leaf.getValor().getMatricula().compareTo(obj) < 0){
                 destroyNode(leaf.getDireito(),obj);
             }
             else{ 
@@ -117,10 +119,10 @@ public class ArvoreBinaria<Tipo extends Comparable<Tipo>>{
             Node<Tipo> min = leaf;
             Node<Tipo> minEsquerda = leaf.getEsquerdo();
             Node<Tipo> minDireita = leaf.getDireito();
-            if(min.getValor().compareTo(minEsquerda.getValor()) > 0){
+            if((min.getValor().getMatricula()).compareTo(minEsquerda.getValor().getMatricula()) > 0){
                 min = minEsquerda;
             }
-            else if(min.getValor().compareTo(minDireita.getValor()) > 0){
+            else if(min.getValor().getMatricula().compareTo(minDireita.getValor().getMatricula()) > 0){
                 min = minDireita;
             }
             return min;
@@ -133,10 +135,10 @@ public class ArvoreBinaria<Tipo extends Comparable<Tipo>>{
             Node<Tipo> max = leaf;
             Node<Tipo> maxEsquerda = leaf.getEsquerdo();
             Node<Tipo> maxDireita = leaf.getDireito();
-            if(max.getValor().compareTo(maxEsquerda.getValor()) < 0){
+            if(max.getValor().getMatricula().compareTo(maxEsquerda.getValor().getMatricula()) < 0){
                 max = maxEsquerda;
             }
-            else if(max.getValor().compareTo(maxDireita.getValor()) < 0){
+            else if(max.getValor().getMatricula().compareTo(maxDireita.getValor().getMatricula()) < 0){
                 max = maxDireita;
             }
             return max;
@@ -149,7 +151,7 @@ public class ArvoreBinaria<Tipo extends Comparable<Tipo>>{
 			if(leaf.getDireito() != null){
 				leaf = getWorst(leaf.getDireito());
 			}
-			else if(leaf.getEsquerdo != null){
+			else if(leaf.getEsquerdo() != null){
 				leaf = getWorst(leaf.getEsquerdo());
 			}
 			return leaf;
@@ -157,8 +159,8 @@ public class ArvoreBinaria<Tipo extends Comparable<Tipo>>{
 		return leaf;
 	}
     //Método para adição de nó na árvore
-    public void addNode(Tipo obj){
-        raiz = createNode(raiz,obj);
+    public void addNode(Aluno<Tipo> aluno){
+        raiz = createNode(raiz,aluno);
     }
     //Método para busca de nó na árvore
     public void existsValue(Tipo obj){
@@ -190,4 +192,5 @@ public class ArvoreBinaria<Tipo extends Comparable<Tipo>>{
 	public void findWorst(){
 		raiz = getWorst(raiz);
 	}
+ 
 }

@@ -1,37 +1,35 @@
 package arvorebinaria;
 
 import java.io.BufferedReader;
+import java.io.Console;
 import java.io.FileReader;
+import java.io.IOException;
 
-public class LeitorArquivos<Tipo extends Comparable<Tipo>>{
-    public ArvoreBinaria<Tipo> geraArvore(String path){
+ public class LeitorArquivos<Tipo extends Comparable<Tipo>>{
+    public static final int ler = 0;
+
+    public ArvoreBinaria<Tipo> ler(String path) throws IOException{
+        Aluno<Tipo> aluno = new Aluno<Tipo>(null,null,null);
+        Node<Tipo> raiz =   new Node(aluno);
+        ArvoreBinaria<Tipo> arvore =new ArvoreBinaria(raiz);
         long tempoInicial = System.currentTimeMillis();
-		String current = new java.io.File( "." ).getCanonicalPath();
-        File inputFile = new File(current + "\\arvorebinaria\\Entradas.txt");                
-        FileReader in = new FileReader(inputFile);
-        BufferedReader buffRead = new BufferedReader(in);
-		String linha = buffRead.readLine();
-        int numero_matriculas = Integer.parseInt(linha);
+        String linha = ""; 
+        BufferedReader buffRead =new BufferedReader(new FileReader(path));
         linha = buffRead.readLine();
-        String[] obj=linha.split(";");
-        for (int i=0;i <=numero_matriculas-1;i++){
+        int numero_matriculas = Integer.parseInt(linha);
+        System.out.println(numero_matriculas-1);
+        String[] obj;
+        for (int i=0;i <=numero_matriculas-2;i++){
             linha = buffRead.readLine();
-            if(linha != null){
-				Aluno<Tipo> aluno = new Aluno<Tipo>(null,null,null);
-				obj = linha.split(";");
-				String matricula = obj[0];
-				String nome = obj[1];
-				String nota = obj[2];
-				aluno.setMatricula(matricula);
-				aluno.setNome(nome);
-				aluno.setNota(nota);
-				Node<Tipo> leaf = createNode(aluno);
-				ArvoreBinaria<Tipo> tree = addNode(leaf);
-			}
+            obj = linha.split(";");
+            aluno=new Aluno(obj[0],obj[1],obj[2]); 
+            arvore.addNode(aluno );
+            System.out.println("Aluno :"+ obj[0]+"--"+obj[1]+"--"+obj[2]+"--");
+
         }
         buffRead.close();
         long tempo = System.currentTimeMillis() - tempoInicial;
         System.out.println("O método foi executado em " +tempo);
-		return tree;
+        return arvore;
     }
 }
