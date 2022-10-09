@@ -18,7 +18,7 @@ public class ArvoreBinaria<Tipo extends Comparable<Tipo>>{
             leaf.noEsquerdo = createNode(leaf.getEsquerdo(),aluno);
         }
         else if((leaf.getValor().getMatricula()).compareTo(aluno.getMatricula()) < 0){
-            leaf.noDireito = createNode(leaf.getEsquerdo(),aluno);
+            leaf.noDireito = createNode(leaf.getDireito(),aluno);
         }
         else{
             return leaf;
