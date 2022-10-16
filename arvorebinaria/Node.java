@@ -3,15 +3,15 @@
 package arvorebinaria;
 
 public class Node<Tipo> {
-    Aluno<Tipo> valor;
+    Tipo valor;
     Node<Tipo> noEsquerdo;
     Node<Tipo> noDireito;
-    Node(Aluno<Tipo> aluno){
+    Node(Tipo aluno){
         this.valor = aluno;
         this.noEsquerdo = null;
         this.noDireito = null;
     }
-    Aluno<Tipo> getValor(){
+    Tipo getValor(){
         return this.valor;
     } 
     Node<Tipo> getEsquerdo(){
@@ -20,7 +20,7 @@ public class Node<Tipo> {
     Node<Tipo> getDireito(){
         return this.noDireito;
     }
-    void setValor(Aluno<Tipo> val){
+    void setValor(Tipo val){
         this.valor = val;
     }
     void setEsquerdo(Node<Tipo> node){

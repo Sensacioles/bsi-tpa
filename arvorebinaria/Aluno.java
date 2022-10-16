@@ -1,33 +1,33 @@
 package arvorebinaria;
 
-public class Aluno<Tipo>{
-	Tipo matricula;
-	Tipo nome;
-	Tipo nota;
-	Aluno(Tipo m,Tipo nm,Tipo nt){
+public class Aluno implements Comparable<Aluno>{
+	int matricula;
+	String nome;
+	float nota;
+	Aluno(int m,String nm,float nt){
 		this.matricula = m;
 		this.nome = nm;
 		this.nota = nt;
 	}
-	Tipo getMatricula(){
+	int getMatricula(){
         return this.matricula;
     } 
-    Tipo getNome(){
+    String getNome(){
         return this.nome;
     }
-    Tipo getNota(){
+    float getNota(){
         return this.nota;
     }
-	void setMatricula(Tipo m){
+	void setMatricula(int m){
 		this.matricula = m;
 	}
-	void setNome(Tipo nm){
+	void setNome(String nm){
 		this.nome = nm;
 	}
-	void setNota(Tipo nt){
+	void setNota(float nt){
 		this.nota = nt;
 	}
-	Aluno<Tipo> createAluno(Aluno<Tipo> stud,Tipo m, Tipo nm, Tipo nt){
+	/*Aluno<Tipo> createAluno(Aluno<Tipo> stud,Tipo m, Tipo nm, Tipo nt){
 		if(stud.matricula == null){
 			stud = new Aluno<Tipo>(m,nm,nt);
 		}
@@ -40,5 +40,20 @@ public class Aluno<Tipo>{
 			}
 		}
 		return stud;
+	}*/
+	@Override
+	public int compareTo(Aluno o) {
+		if (this.matricula == o.matricula)
+			return 0;
+		else if (this.matricula > o.matricula)
+			return 1;
+		else
+			return -1;
+	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return ("Matricula: " + Integer.toString(this.matricula) + " - Nome: " + this.nome);
 	}
 }
