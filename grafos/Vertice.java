@@ -1,27 +1,19 @@
 /**@author Emanuel Norjosa Luz e Giovanni Sencioles */
-
+package Grafos;
 //Biblioteca de vertices 
-public class Vertice<Tipo>{
-    private Tipo codigo; //Codigo da cidade
-    private Tipo nome; //Nome da cidade
-    private ArrayList<Aresta> distancia;  /*Lista de distancias, cada indice representa
-    a distancia para cada cidade da matriz, o indice 0 sendo a propria cidade*/
+
+import java.util.ArrayList;
+
+public class Vertice<Tipo extends Comparable>{
+    private Tipo valor; //Alocacao generica de cidade
     
-    Vertice(Tipo c, Tipo n){
-        this.codigo = c;
-        this.nome = n;
-        this.distancia[0] = 0;
+    Vertice(Tipo cidade){
+        this.valor = cidade;
     }
-    public Tipo getCodigo(){
-        return this.codigo;
+    public Tipo getValor(){
+        return this.valor;
     }
-    public Tipo getNome(){
-        return this.nome;
-    }
-    public void setCodigo(Tipo c){
-        this.codigo = c;
-    }
-    public void setNome(Tipo n){
-        this.nome = n;
+    public void setValor(Tipo c){
+        this.valor = c;
     }
 }
