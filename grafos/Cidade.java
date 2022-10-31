@@ -1,6 +1,6 @@
 /** @author Emanuel Norjosa Luz e Giovanni Sencioles */
 
-package Grafos;
+package grafos;
 
 public class Cidade implements Comparable<Cidade>{
     private int codigo;
@@ -12,12 +12,13 @@ public class Cidade implements Comparable<Cidade>{
     public int getCodigo(){
         return this.codigo;
     }
+        public void setCodigo(int c){
+        this.codigo = c;
+    }
     public String getNome(){
         return this.nome;
     }
-    public void setCodigo(int c){
-        this.codigo = c;
-    }
+
     public void setNome(String nm){
         this.nome = nm;
     }
