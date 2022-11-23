@@ -68,33 +68,7 @@ public class Dijkstra<Tipo extends Comparable>{
             System.out.print(((Cidade)destino.getValor()).getNome()+"/");
             destino= lista_de_precedentes.get(vertices_cidades.indexOf(destino));
         }
-        System.out.println( ((Cidade)destino.getValor()).getNome());
+        System.out.println(((Cidade)destino.getValor()).getNome());
         System.out.println("DISTANCIA: " + estimativas.get(lista_de_vertices.indexOf(d)));
     }
 }
-            
-
-
-       
-
-
-
-            
-
-
-
-
-        
-
-
-
-
-
-
-
-
-
-         
-    
-       
-
