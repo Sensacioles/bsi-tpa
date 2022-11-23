@@ -8,77 +8,71 @@ public class Grafo<Tipo extends Comparable<Tipo>>{
     private ArrayList<Vertice<Tipo>> vertices;
     private int qArestas;
     
-    Grafo(ArrayList<Aresta<Tipo>> a, ArrayList<Vertice<Tipo>> v, int q){
-        this.arestas = a;
-        this.vertices = v;
-        this.qArestas = q;
+    Grafo(){
+        this.arestas = new ArrayList<Aresta<Tipo>>();
+        this.vertices = new ArrayList<Vertice<Tipo>>();
     }
-    public ArrayList<Aresta<Tipo>> getArestas(){
+
+    public ArrayList<Aresta<Tipo>> getarestas(){
         return this.arestas;
     }
-    public ArrayList<Vertice<Tipo>> getVertices(){
+    public void setarestas(ArrayList<Aresta<Tipo>> A){
+        this.arestas=A;
+    }
+    public ArrayList<Vertice<Tipo>> getvertices(){
         return this.vertices;
+    }
+    public void setvertices(ArrayList<Vertice<Tipo>> A){
+        this.vertices= A;
     }
     public int getqArestas(){
         return this.qArestas;
     }
-    public Vertice<Tipo> addVertice(Tipo valor){
-        Vertice<Tipo> novo = new Vertice<Tipo>(valor);  //Instancia um novo vertice
-        this.vertices.add(novo);    //Adiciona ele a lista de vertices
-        return novo;    //Retorna ele para ser utilizado na busca dentro do método de adicionar aresta
-    }       
-    public Vertice<Tipo> getVertice(Tipo valor){
-        Vertice<Tipo> comp;
-        for(int i=0;i<this.vertices.size();i++){
-            comp = this.vertices.get(i);    //Armazena o vertice i
-            if(comp.getValor().equals(valor)){  //Compara com o valor passado
-                return comp;    //Caso igual retorna i
+    public void setqArestas(int A){
+        this.qArestas=A;
+    }
+    public ArrayList<Aresta<Tipo>> arestas_da_origem(Vertice vertice){
+
+         ArrayList<Aresta<Tipo>> vizinhas= new ArrayList<Aresta<Tipo>>();
+   
+         for(int i=0;i==this.arestas.size();i++){
+            if ((this.arestas.get(i)).getOrigem()==vertice){
+                vizinhas.add((this.arestas.get(i)));
             }
         }
-        return null;    //Caso nao, vertice com o valor nao existe
+        return vizinhas; 
     }
-    public void addAresta(Tipo o, Tipo d, float p){
-        Vertice<Tipo> origem,destino;
-        origem = getVertice(o); 
-        destino = getVertice(d);
-        //Sao checados caso origem e/ou destino são nulos
-        //Caso sejam, sao criados e retornados para serem adicionados a aresta
-        if(origem == null){
-            origem = addVertice(o);
-        }
-        if(destino == null){
-            destino = addVertice(d);
-        }
-        //Nova aresta criada com valores de origem, destino e peso, adicionada a lista
-        Aresta<Tipo> nova = new Aresta<Tipo>(origem, destino, p);
-        this.arestas.add(nova); 
-    }
-    private ArrayList<Aresta<Tipo>> getListDestinos(Vertice<Tipo> v){
-        ArrayList<Aresta<Tipo>> lstDestinos = new ArrayList<Aresta<Tipo>>();    //Instancia lista de destinos
-        Aresta<Tipo> atual;
-        for(int i=0;i<this.arestas.size();i++){ //Percorre a lista de arestas
-            atual = this.arestas.get(i);
-            if(atual.getOrigem().equals(v)){
-                lstDestinos.add(atual); //Adiciona i na lista de destinos
-            }
-        }
-        return lstDestinos;
-    }
-    public void buscaLargura(){
-        ArrayList<Vertice<Tipo>> prox = new ArrayList<Vertice<Tipo>>();
-        ArrayList<Vertice<Tipo>> perc = new ArrayList<Vertice<Tipo>>();
-        Vertice<Tipo> atual = this.vertices.get(0);
-        prox.add(atual);
-        while(prox.size()>0){
-            atual = prox.get(0);
-            prox.remove(0);
-            perc.add(atual);
-            ArrayList<Aresta<Tipo>> dest = this.getListDestinos(atual);
-            Vertice<Tipo> aux;
-            for(int i=0;i<dest.size();i++){
-                aux = dest.get(i).getDestino();
-                if(!perc.contains(aux)){
-                    prox.add(aux);
+
+    public void prim(){
+        ArrayList<Vertice<Tipo>> v_vertices= new ArrayList<>();
+        ArrayList<Aresta<Tipo>> v_aretas= new ArrayList<>();
+        Vertice<Tipo> v_atual= this.vertices.get(0);
+        Aresta<Tipo> a_atual= this.arestas.get(0);
+        // Marca origem como visitado, adicionando-o no vetor de vértices 
+        v_vertices.add(v_atual); 
+        while(this.vertices.size() > v_vertices.size()){
+            double f_aux= 999999.9;
+            for(int i =0; i<this.arestas.size();i++){
+                //Caso seja menor peso e
+                //o vetor tenha a origem visitada e
+                //o vetor não tenha o destino não visitado
+                if(this.arestas.get(i).getPeso()<f_aux && v_vertices.contains(this.arestas.get(i).getOrigem())==true && v_vertices.contains(this.arestas.get(i).getDestino())==false){
+                    //O peso dessa aresta passa a ser o menor,
+                    //o vértice atual é definido como destino e
+                    //a aresta é marcada como visitada
+                    f_aux = this.arestas.get(i).getPeso();
+                    v_atual=this.arestas.get(i).getDestino();
+                    a_atual=this.arestas.get(i);
+                }
+                //Caso o vetor de vértices ainda não possua o último vértice a ser visitado
+                if(v_vertices.contains(v_atual)==false){
+                    //Adiciona ele ao vetor e
+                    //o peso da aresta ao vetor de arestas
+                    v_vertices.add(v_atual);
+                    v_aretas.add(a_atual);
+                    System.out.println("origem:"+((Cidade)a_atual.getOrigem().getValor()).getNome()+
+                    "     destino:"+((Cidade)a_atual.getDestino().getValor()).getNome()+
+                    "   peso:"+a_atual.getPeso());
                 }
             }
         }

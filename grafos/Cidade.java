@@ -5,9 +5,8 @@ package grafos;
 public class Cidade implements Comparable<Cidade>{
     private int codigo;
     private String nome;
-    Cidade(int c, String nm){
-        this.codigo = c;
-        this.nome = nm;
+    Cidade( ){
+        
     }
     public int getCodigo(){
         return this.codigo;

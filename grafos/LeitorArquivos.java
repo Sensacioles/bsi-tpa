@@ -1,33 +1,38 @@
 package grafos;
 
-//import grafos.Grafo;
-//import grafos.Aresta;
-//import grafos.Vertice;   
+import grafos.Vertice;   
 import java.io.BufferedReader;
-//import java.io.Console;
+import java.io.Console;
 import java.io.FileReader;
 import java.io.IOException;
-//import java.nio.file.Path;
+import java.nio.file.Path;
 import java.util.ArrayList;
 
  public class LeitorArquivos<Tipo extends Comparable<Tipo>>{
+    Grafo matriz =new Grafo() ;
      public Grafo<Tipo> ler(String string) throws IOException{
         
-        ArrayList<Aresta<Tipo>> lista_de_arestas = new ArrayList<Aresta<Tipo>>();
-        ArrayList<Vertice<Tipo>> lista_de_Vertices = new ArrayList<Vertice<Tipo>>();
+        
+        ArrayList<Aresta> lista_de_arestas = new ArrayList<Aresta>();
+        
+        ArrayList<Vertice> lista_de_Vertices = new ArrayList<Vertice>();
         long tempoInicial = System.currentTimeMillis();
         String linha = ""; 
         BufferedReader buffRead =new BufferedReader(new FileReader(string));
         linha = buffRead.readLine();
         int numero_de_casos = Integer.parseInt(linha);
-        String[] obj;
+         String[] obj;
 
         // Percorre as linhas do arquivo txt responsáveis por indicar o código e o nome da cidade
         for (int i=0;i <=numero_de_casos-1;i++){
             linha = buffRead.readLine();
             obj = linha.split(";");
-            Cidade cidade = new Cidade(Integer.parseInt(obj[0]), obj[1]);
-            Vertice<Tipo> vertice= new Vertice<Tipo>((Tipo)cidade);
+            Cidade cidade=new Cidade();
+            cidade.setCodigo(Integer.parseInt(obj[0]));
+            cidade.setNome( obj[1]);
+            Vertice vertice= new Vertice();
+
+            vertice.setValor(cidade);
             lista_de_Vertices.add(vertice);
         }
    
@@ -39,23 +44,30 @@ import java.util.ArrayList;
 
 
             for (int coluna_da_matriz=0;coluna_da_matriz<=obj.length-1;coluna_da_matriz++){
-                if (obj[coluna_da_matriz]!="0,00"){
-                Vertice<Tipo> origem = lista_de_Vertices.get(coluna_da_matriz);
-                Vertice<Tipo> destino = lista_de_Vertices.get(coluna_da_matriz);
-                float peso = Float.parseFloat((obj[coluna_da_matriz]).replace(",", "."));
-                Aresta<Tipo> aresta = new Aresta<Tipo>(origem,destino,peso);
+                if (Float.parseFloat((obj[coluna_da_matriz]).replace(",", "."))!=0){
+                Aresta aresta = new Aresta();
+                aresta.setOrigem(lista_de_Vertices.get(linhas_da_matriz));
+                aresta.setDestino(lista_de_Vertices.get(coluna_da_matriz));
+                aresta.setPeso(Float.parseFloat((obj[coluna_da_matriz]).replace(",", ".")));                
                 lista_de_arestas.add(aresta);
-                }
             }
         }
-        
-        //Instanciacao do grafo, fechamento do tempo de processamento e impressao do grafo
-        Grafo<Tipo> matriz = new Grafo<Tipo>(lista_de_arestas, lista_de_Vertices, numero_de_casos);
+
+
+            
+             
+         }
+              
+         
+        this.matriz.setarestas(lista_de_arestas);
+        this.matriz.setvertices(lista_de_Vertices);
+        this.matriz.setqArestas(numero_de_casos);
         buffRead.close();
         long tempo = System.currentTimeMillis() - tempoInicial;
         System.out.println("O método foi executado em " +tempo+" ms");
-        System.out.println(matriz);
-        return matriz;
+        System.out.println(this.matriz);
+         
+        return  this.matriz;
     }
 
   
