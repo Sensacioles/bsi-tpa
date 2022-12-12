@@ -14,9 +14,9 @@ public class main <Tipo extends Comparable<Tipo>>{
         Scanner des = new Scanner(System.in);
         int menu = 0;
         LeitorArquivos leitor = new LeitorArquivos();
-       
+        String path_arquivo = "grafos\\entrada.txt";
         try{
-        grafo = leitor.ler("grafos\\entrada.txt") ;}
+        grafo = leitor.ler(path_arquivo) ;}
         catch (IOException e) {
         e.printStackTrace();}
         while(menu!=99){
@@ -90,10 +90,14 @@ public class main <Tipo extends Comparable<Tipo>>{
                         origem=ori.nextInt();
                     } 
                     Vertice v_origem=(Vertice)grafo.getvertices().get(num_cidades.indexOf(origem));
-                    grafo.lista_de_caminhos(v_origem);
-
-
-
+                    ArrayList<ArrayList<Aresta>> lstCaminhos = grafo.lista_de_caminhos(v_origem);
+                    for (int f=0;f<lstCaminhos.size();f++){
+                        System.out.println();
+                        for(int l=0;l<lstCaminhos.get(f).size();l++){
+                                System.out.print(((Cidade)((lstCaminhos.get(f)).get(l).getOrigem()).getValor()).getNome() +"-"+((Cidade)((lstCaminhos.get(f)).get(l).getDestino()).getValor()).getNome()+" " );
+                            }  
+                    }
+                    
                 }
                
 
@@ -132,10 +136,12 @@ public class main <Tipo extends Comparable<Tipo>>{
                     grafo.prim();
                 } 
                 else if(menu==5){
-                    
-                    
-
-
+                    try {
+                        grafo = leitor.ler(path_arquivo);  //TROCAR CAMINHO
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
                     ArrayList<Cidade> cidades = new ArrayList<Cidade>();
                     ArrayList num_cidades= new ArrayList<>();
                     for (int i =0;i<grafo.getvertices().size();i++){
@@ -162,7 +168,9 @@ public class main <Tipo extends Comparable<Tipo>>{
                     Vertice v_origem=(Vertice)grafo.getvertices().get(num_cidades.indexOf(origem));
                     Vertice v_destino=(Vertice)grafo.getvertices().get(num_cidades.indexOf(destino));
                     System.out.println(((Cidade)v_origem.getValor()).getNome()+" ----- "+((Cidade)v_destino.getValor()).getNome());
-                    grafo.fmaximo(v_origem,v_destino);
+                    System.out.println();
+                    grafo.fluxo_maximo(v_origem,v_destino);
+                    System.out.println();
                 }
                 else if(menu==99){}
                 else{ 
